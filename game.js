@@ -18,8 +18,8 @@ var attacks = {
 };
 // There should be a way to assign this in one statement right?
 var sattacks = {
-    1: 10,
-    2: 5,
+    1: 5,
+    2: 3,
     3: 1
 }
 // Functions
