@@ -4,8 +4,10 @@ var playerHealth = 100;
 var win = false;
 var lose = false;
 var overKill = 0;
+var playerEnergy = 10;
 var hElem = document.getElementById('h-elem');
 var pElem = document.getElementById('p-elem');
+var eElem = document.getElementById('e-elem');
 var bElem = document.getElementById('b-elem');
 var aElem = document.getElementById('attack-img');
 var attacks = {
@@ -48,6 +50,7 @@ function update() {
     // Set page text to js vars
     hElem.innerText = String(stickHealth);
     pElem.innerText = String(playerHealth);
+    eElem.style.width = String(playerEnergy*100/10).concat("%");
     // Show attack image
     setTimeout(function () {
         aElem.className = "hidden";
