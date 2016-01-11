@@ -4,7 +4,7 @@ var playerHealth = 100;
 var win = false;
 var lose = false;
 var overKill = 0;
-var playerEnergy = 8;
+var playerEnergy = 6;
 var hElem = document.getElementById('h-elem');
 var pElem = document.getElementById('p-elem');
 var eElem = document.getElementById('e-elem');
@@ -55,8 +55,8 @@ function attack(attackType) {
 }
 function update() {
     // Update Player Energy
-    if (playerEnergy <= 8) {
-        playerEnergy += 2;
+    if (playerEnergy <= 6) {
+        playerEnergy += 4;
     } else {
         playerEnergy = 10;
     }
