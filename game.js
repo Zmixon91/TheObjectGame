@@ -1,5 +1,7 @@
 var health = 100;
+var win = false;
 var hElem = document.getElementById('h-elem');
+var bElem = document.getElementById('b-elem');
 var aElem = document.getElementById('attack-img');
 
 var attacks = {
@@ -11,6 +13,10 @@ var attacks = {
 function attack(attackType){
 	aElem.className = "attack-img";
 	health -= attacks[attackType];
+    if (health <= 0) {
+        health = 0;
+        win = true;
+    }
 	update();
 }
 
@@ -19,5 +25,12 @@ function update(){
 	setTimeout(function() {
 		aElem.className="hidden";
 	}, 500);
+    if (win) {
+        bElem.innerText = String("YOU WIN");
+    }
+}
+
+function reset() {
+    location.reload();
 }
 update();
