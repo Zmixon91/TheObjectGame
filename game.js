@@ -34,7 +34,9 @@ function attack(attackType) {
             stickHealth -= attacks[attackType];
         }
         // Damage to Player
-        playerHealth -= sattacks[Math.floor(Math.random() * 3) + 1]
+        if (!win) {
+            playerHealth -= sattacks[Math.floor(Math.random() * 3) + 1]
+        }
         // Calculate results to Stick
         if (stickHealth <= 0 && !win) {
             stickHealth = 0;
@@ -83,7 +85,8 @@ function update() {
                 bElem.innerText = String("You're a monster!");
             } else if (overKill >= 16) {
                 // Player needs help, give it to them
-                window.location.href = 'http://www.angermgmt.com/'
+                bElem.innerText = String("You need help!");
+                window.location.href = 'http://lmgtfy.com/?q=anger+management+services'
             }
         }
         // If player lost let them know
