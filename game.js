@@ -1,6 +1,7 @@
 var stickHealth = 100;
 var playerHealth = 100;
 var win = false;
+var lose = false;
 var overKill = 0;
 var hElem = document.getElementById('h-elem');
 var pElem = document.getElementById('p-elem');
@@ -12,16 +13,34 @@ var attacks = {
     punch: 5,
     slap: 1
 };
+var sattacks = {
+    1: 10,
+    2: 5,
+    3: 1
+}
 
 function attack(attackType) {
+    // Attack image
     aElem.className = "attack-img";
-    stickHealth -= attacks[attackType];
+    // Damage to Stick
+    if (!lose) {
+        stickHealth -= attacks[attackType];
+    }
+    // Damage to Player
+    playerHealth -= sattacks[Math.floor(Math.random() * 3) + 1]
+    // Calculate results to Stick
     if (stickHealth <= 0 && !win) {
         stickHealth = 0;
         win = true;
     } else if (win) {
         stickHealth = 0;
         overKill += 1;
+    }
+    
+    // Calculate results to Player
+    if (playerHealth <= 0 && !win) {
+        playerHealth = 0;
+        lose = true;
     }
     update();
 }
@@ -46,6 +65,8 @@ function update() {
                 window.location.href = 'http://www.angermgmt.com/'
             }
         }
+    } else if (lose) {
+        bElem.innerText = String("YOU LOSE");
     }
 }
 
