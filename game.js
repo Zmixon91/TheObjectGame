@@ -3,6 +3,7 @@ var playerHealth = 100;
 var win = false;
 var overKill = 0;
 var hElem = document.getElementById('h-elem');
+var pElem = document.getElementById('p-elem');
 var bElem = document.getElementById('b-elem');
 var aElem = document.getElementById('attack-img');
 
@@ -27,6 +28,7 @@ function attack(attackType) {
 
 function update() {
     hElem.innerText = String(stickHealth);
+    pElem.innerText = String(playerHealth);
     setTimeout(function () {
         aElem.className = "hidden";
     }, 500);
