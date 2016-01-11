@@ -4,10 +4,11 @@ var playerHealth = 100;
 var win = false;
 var lose = false;
 var overKill = 0;
-var playerEnergy = 10;
+var playerEnergy = 8;
 var hElem = document.getElementById('h-elem');
 var pElem = document.getElementById('p-elem');
 var eElem = document.getElementById('e-elem');
+var e2Elem = document.getElementById('e2-elem');
 var bElem = document.getElementById('b-elem');
 var aElem = document.getElementById('attack-img');
 var attacks = {
@@ -23,34 +24,47 @@ var sattacks = {
 }
 // Functions
 function attack(attackType) {
-    // Attack image
-    aElem.className = "attack-img";
-    // Damage to Stick
-    if (!lose) {
-        stickHealth -= attacks[attackType];
-    }
-    // Damage to Player
-    playerHealth -= sattacks[Math.floor(Math.random() * 3) + 1]
-    // Calculate results to Stick
-    if (stickHealth <= 0 && !win) {
-        stickHealth = 0;
-        win = true;
-    } else if (win) {
-        stickHealth = 0;
-        overKill += 1;
-    }
-    // Calculate results to Player
-    if (playerHealth <= 0 && !win) {
-        playerHealth = 0;
-        lose = true;
+    // Calculate Energy drain
+    playerEnergy -= attacks[attackType];
+    if (playerEnergy >= 0) {
+        // Attack image
+        aElem.className = "attack-img";
+        // Damage to Stick
+        if (!lose) {
+            stickHealth -= attacks[attackType];
+        }
+        // Damage to Player
+        playerHealth -= sattacks[Math.floor(Math.random() * 3) + 1]
+        // Calculate results to Stick
+        if (stickHealth <= 0 && !win) {
+            stickHealth = 0;
+            win = true;
+        } else if (win) {
+            stickHealth = 0;
+            overKill += 1;
+        }
+        // Calculate results to Player
+        if (playerHealth <= 0 && !win) {
+            playerHealth = 0;
+            lose = true;
+        }
+    } else {
+        playerEnergy = 0;
     }
     update();
 }
 function update() {
+    // Update Player Energy
+    if (playerEnergy <= 8) {
+        playerEnergy += 2;
+    } else {
+        playerEnergy = 10;
+    }
     // Set page text to js vars
     hElem.innerText = String(stickHealth);
     pElem.innerText = String(playerHealth);
-    eElem.style.width = String(playerEnergy*100/10).concat("%");
+    eElem.style.width = String(playerEnergy * 100 / 10).concat("%");
+    e2Elem.innerText = String(playerEnergy);
     // Show attack image
     setTimeout(function () {
         aElem.className = "hidden";
