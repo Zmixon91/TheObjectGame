@@ -1,5 +1,6 @@
 var health = 100;
 var win = false;
+var overKill = 0;
 var hElem = document.getElementById('h-elem');
 var bElem = document.getElementById('b-elem');
 var aElem = document.getElementById('attack-img');
@@ -12,10 +13,13 @@ var attacks = {
 
 function attack(attackType){
 	aElem.className = "attack-img";
-	health -= attacks[attackType];
-    if (health <= 0) {
+        health -= attacks[attackType];
+    if (health <= 0 && !win) {
         health = 0;
         win = true;
+    } else if (win) {
+        health = 0;
+        overKill += 1;
     }
 	update();
 }
@@ -27,6 +31,18 @@ function update(){
 	}, 500);
     if (win) {
         bElem.innerText = String("YOU WIN");
+        if (overKill) {
+            if (overKill <= 4) {}
+            else if (overKill <= 10) {
+                bElem.innerText = String("Stop! You won!");
+            } else if (overKill <= 12) {
+                bElem.innerText = String("No really! You're hurting him!");
+            } else if (overKill <= 15) {
+                bElem.innerText = String("You're a monster!");
+            } else if (overKill >= 16) {
+                window.location.href='http://www.angermgmt.com/'
+            }
+        }
     }
 }
 
