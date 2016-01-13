@@ -1,11 +1,17 @@
-// Game Object: Punch, Slap, or Kick the Stick figure to death
-//              before he does the same to you.
+/* Game Object:     Punch, Slap, or Kick the Stick figure to death
+*                   before he does the same to you.
+*/
 
-// Game Design: Turn-Based, choose an attack and a direction.
-//              Stick will dodge right or left at random and
-//              choose an attack at random.
-//              Player cannot dodge, but Stick's damage is
-//              halved.
+/* Game Design:     Turn-Based, choose an attack and a direction.
+*                   Stick will dodge right or left at random and
+*                   choose an attack at random.
+*                   Player cannot dodge, but Stick's damage is
+*                   halved.
+*/
+
+/* Game Design 2:   Now make it more complicated by adding some 
+*                   items to further increase/decrease damage
+*/
 
 // Initialize Vars
 
@@ -23,52 +29,117 @@ var overKill = 0;
 var attacks = {
     kick: 10,
     punch: 5,
-    slap: 1
+    slap: 1,
+    "1": 10,
+    "2": 5,
+    "3": 1
 }
 // {obj} player
 var player = {
     health: 100,
     energy: 10,
-    attack: null,
     attackModifier: 1,
-    position: null
 }
 // {obj} stick
 var stick = {
     health: 100,
-    attack: null,
     attackModifier: 0.5,
     position: null
 }
-// {obj} stick health
-var hElem = document.getElementsByID('h-elem');
-// {obj} player health
-var pElem = document.getElementById('p-elem');
-// {obj} energy bar
-var eElem = document.getElementById('e-elem');
-// {obj} energy number
-var e2Elem = document.getElementById('e2-elem');
-// {obj} body element
-var bElem = document.getElementById('b-elem');
-// {obj} attack image
-var aElem = document.getElementById('attack-img');
-
+// {obj} game elements
+var gameElem = {
+    playerHealthElem: document.getElementById('p-elem'),
+    stickHealthElem: document.getElementById('h-elem'),
+    playerEnergyElem: document.getElementById('e-elem'),
+    playerEnergy2Elem: document.getElementById('e2-elem'),
+    bodyElem: document.getElementById('b-elem'),
+    attackElem: document.getElementById('attack-img'),
+    stickImgElem: document.getElementById('stick-img')
+}
 // FUNCTIONS
-// attack(attackType,attackPosition) {}
-function attack(attackType,attackPosition) {
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// attack(type,position) {}
+function attack(type, position) {
     
-    
-    
+    // Player Attack
+    var energy = player.energy - attacks[type];
+    if (energy < 0) {
+        console.log("Error: Not enough Energy");
+    } else {
+        if (stick.position === position) {
+            stick.health -= Math.ceil(player.attackModifier * attacks[type]);
+        }
+        player.energy = energy;
+    }
+    // Stick Attack
+    player.health -= Math.ceil(stick.attackModifier * (attacks[Math.floor(Math.random() * 3) + 1]));
+    // run game update
+    update();
 }
 // update() {}
 function update() {
     
-    
-    
+    // Check health values
+    if (player.health <= 0) {
+        player.health = 0;
+        gameState = 3;
+    }
+    if (stick.health <= 0) {
+        stick.health = 0;
+        gameState = 2;
+    }
+    // Check game state
+    switch (gameState) {
+        case 0:
+            console.log("Game starting");
+            gameState = 1;
+            break;
+        case 1:
+            console.log("Game is running");
+            player.energy += 5;
+            if (player.energy > 10) {
+                player.energy = 10;
+            }
+            gameElem.stickImgElem.classList.remove("pull-left");
+            gameElem.stickImgElem.classList.remove("pull-right");
+            // !!!!!!!!! MOVE THIS TO THE ATTACK FUNCTION LATER !!!!!!!!!
+            if (Math.round(Math.random())) {
+                stick.position = "right";
+                gameElem.stickImgElem.classList.add("pull-right");
+            } else {
+                stick.position = "left";
+                gameElem.stickImgElem.classList.add("pull-left");
+            }
+            break;
+        case 2:
+            console.log("Game is over: Player won");
+            overKill += 1;
+            if (overKill) {
+                // Add later
+            }
+            break;
+        case 3:
+            console.log("Game is over: Player lost");
+            break;
+    }
+    // Update HTML Elems
+    gameElem.playerHealthElem.innerText = String(player.health);
+    gameElem.stickHealthElem.innerText = String(stick.health);
+    gameElem.playerEnergyElem.style.width = String(player.energy * 100 / 10).concat("%");
+    gameElem.playerEnergy2Elem.innerText = String(player.energy);
+
 }
 // reset() {}
 function reset() {
     
-    
-    
+    // Reset game values
+    gameState = 0;
+    overKill = 0;
+    player.health = 100;
+    player.energy = 10;
+    stick.health = 100;
+    update();
+
 }
+// Initialize game
+update();

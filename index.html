@@ -23,16 +23,19 @@
         </div>
         <div class="panel-body" id="b-elem">
             <img id="attack-img" class="hidden" height="200px" src="http://www.clker.com/cliparts/K/3/X/u/H/G/pow-hi.png">
-            <img src="http://pre01.deviantart.net/7a34/th/pre/f/2007/099/6/3/monk_stick_figure_by_wrpigeek.png" alt="stick-fighter" height="200px">
+            <img id="stick-img" class="" src="http://pre01.deviantart.net/7a34/th/pre/f/2007/099/6/3/monk_stick_figure_by_wrpigeek.png" alt="stick-fighter" height="200px">
         </div>
         <div class="panel-footer">
-            <button class="btn btn-primary" onclick="attack('slap')">SLAP(1)</button>
-            <button class="btn btn-primary" onclick="attack('kick')">KICK(10)</button>
-            <button class="btn btn-primary" onclick="attack('punch')">PUNCH(5)</button>
+            <button class="btn btn-primary" onclick="attack('slap','left')">SLAP(1)</button>
+            <button class="btn btn-primary" onclick="attack('punch','left')">PUNCH(5)</button>
+            <button class="btn btn-primary" onclick="attack('kick','left')">KICK(10)</button>
             <button class="btn btn-danger" onclick="reset()">RESET!!</button>
+            <button class="btn btn-primary pull-right" onclick="attack('slap','right')">SLAP(1)</button>
+            <button class="btn btn-primary pull-right" onclick="attack('punch','right')">PUNCH(5)</button>
+            <button class="btn btn-primary pull-right" onclick="attack('kick','right')">KICK(10)</button>
         </div>
     </div>
-    <script src="game.js"></script>
+    <script src="game-new.js"></script>
 </body>
 
 </html>
