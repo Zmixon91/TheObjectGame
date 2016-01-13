@@ -50,6 +50,7 @@ var stick = {
 var gameElem = {
     playerHealthElem: document.getElementById('p-elem'),
     playerHealthBarElem: document.getElementById('healthBar-elem'),
+    playerHealthBarOverElem: document.getElementById('healthBarOver-elem'),
     stickHealthElem: document.getElementById('h-elem'),
     stickHealthBarElem: document.getElementById('healthBarStick-elem'),
     playerEnergyElem: document.getElementById('e-elem'),
@@ -163,8 +164,15 @@ function update() {
     gameElem.playerHealthElem.innerText = String(player.health);
     gameElem.stickHealthElem.innerText = String(stick.health);
     gameElem.playerEnergyElem.style.width = String(player.energy * 100 / 10).concat("%");
-    gameElem.playerHealthBarElem.style.width = String(player.health * 100 / 100).concat("%");
-    gameElem.stickHealthBarElem.style.width = String(stick.health * 100 / 100).concat("%");
+    gameElem.playerHealthBarElem.style.width = String(player.health).concat("%");
+    if (player.health > 100) {
+        var newHealth = player.health-100;
+        gameElem.playerHealthBarOverElem.style.width = String(newHealth).concat("%");
+        gameElem.playerHealthBarElem.style.width = String(100-newHealth).concat("%");
+    } else {
+        gameElem.playerHealthBarOverElem.style.width = "0%";
+    }
+    gameElem.stickHealthBarElem.style.width = String(stick.health).concat("%");
     gameElem.playerEnergy2Elem.innerText = String(player.energy);
 
 }
