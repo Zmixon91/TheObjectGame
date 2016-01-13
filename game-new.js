@@ -83,13 +83,13 @@ var items = {
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // giveItem(item) {}
 function giveItem(given) {
-    alert("You got a "+items[given].name+". "+items[given].desc);
+    alert("You got a " + items[given].name + ". " + items[given].desc);
     if (items[given].affects === "player") {
-        if (items[given].modHealth) {player.health += items[given].modHealth;}
-        if (items[given].modAttack) {player.attackModifier += items[given].modAttack;}
+        if (items[given].modHealth) { player.health += items[given].modHealth; }
+        if (items[given].modAttack) { player.attackModifier += items[given].modAttack; }
     } else {
-        if (items[given].modHealth) {stick.health += items[given].modHealth;}
-        if (items[given].modAttack) {stick.attackModifier += items[given].modAttack;}
+        if (items[given].modHealth) { stick.health += items[given].modHealth; }
+        if (items[given].modAttack) { stick.attackModifier += items[given].modAttack; }
     }
     update();
 }
@@ -148,7 +148,7 @@ function update() {
             break;
         case 2:
             console.log("Game is over: Player won");
-            gameElem.panelElem.setAttribute('class','panel panel-success');
+            gameElem.panelElem.setAttribute('class', 'panel panel-success');
             overKill += 1;
             if (overKill) {
                 // Add later
@@ -156,7 +156,7 @@ function update() {
             break;
         case 3:
             console.log("Game is over: Player lost");
-            gameElem.panelElem.setAttribute('class','panel panel-danger');
+            gameElem.panelElem.setAttribute('class', 'panel panel-danger');
             break;
     }
     // Update HTML Elems
@@ -177,7 +177,7 @@ function reset() {
     player.health = 100;
     player.energy = 10;
     stick.health = 100;
-    gameElem.panelElem.setAttribute('class','panel panel-primary');
+    gameElem.panelElem.setAttribute('class', 'panel panel-primary');
     update();
 
 }

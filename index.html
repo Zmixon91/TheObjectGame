@@ -11,25 +11,34 @@
     <div id="panel-elem" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">The Slap Game</h3>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" id="healthBarStick-elem" role="progressbar">
-                    <span class="pull-left">Stick Health&nbsp;<span id="h-elem"></span></span>
+            <div class="container-fluid">
+                <div class="col-xs-6">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" id="healthBarStick-elem" role="progressbar">
+                            <span class="pull-left">Stick Health&nbsp;<span id="h-elem"></span></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" id="healthBar-elem" role="progressbar">
-                    <span class="pull-left">Your Health&nbsp;<span id="p-elem"></span></span>
+                <div class="col-xs-6">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" id="healthBar-elem" role="progressbar">
+                            <span class="pull-left">Your Health&nbsp;<span id="p-elem"></span></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-warning" id="e-elem" role="progressbar">
-                    <span class="pull-left">Energy&nbsp;<span id="e2-elem"></span></span>
+                <div class="col-xs-12">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" id="e-elem" role="progressbar">
+                            <span class="text-center">Your Energy&nbsp;<span id="e2-elem"></span></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="panel-body" id="b-elem">
             <img id="attack-img" class="hidden" height="200px" src="http://www.clker.com/cliparts/K/3/X/u/H/G/pow-hi.png">
-            <img id="stick-img" class="" src="http://pre01.deviantart.net/7a34/th/pre/f/2007/099/6/3/monk_stick_figure_by_wrpigeek.png" alt="stick-fighter" height="200px">
+            <img id="stick-img" class="" src="http://pre01.deviantart.net/7a34/th/pre/f/2007/099/6/3/monk_stick_figure_by_wrpigeek.png"
+            alt="stick-fighter" height="200px">
         </div>
         <div class="panel-footer">
             <button class="btn btn-primary" onclick="attack('slap','left')">SLAP(1)</button>
