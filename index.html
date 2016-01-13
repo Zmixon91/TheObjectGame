@@ -8,7 +8,7 @@
 </head>
 
 <body class="container col-xs-6 col-xs-offset-3">
-    <div class="panel panel-primary">
+    <div id="panel-elem" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">The Slap Game</h3>
             <span>Stick Health&nbsp;</span>
@@ -30,6 +30,7 @@
             <button class="btn btn-primary" onclick="attack('punch','left')">PUNCH(5)</button>
             <button class="btn btn-primary" onclick="attack('kick','left')">KICK(10)</button>
             <button class="btn btn-danger" onclick="reset()">RESET!!</button>
+            <button class="btn btn-success" onclick="giveItem('potion')">dbgItemTest</button>
             <button class="btn btn-primary pull-right" onclick="attack('slap','right')">SLAP(1)</button>
             <button class="btn btn-primary pull-right" onclick="attack('punch','right')">PUNCH(5)</button>
             <button class="btn btn-primary pull-right" onclick="attack('kick','right')">KICK(10)</button>

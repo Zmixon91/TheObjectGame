@@ -27,9 +27,9 @@ var overKill = 0;
 // OBJECTS
 // {obj} attacks
 var attacks = {
-    kick: 10,
-    punch: 5,
-    slap: 1,
+    "kick": 10,
+    "punch": 5,
+    "slap": 1,
     "1": 10,
     "2": 5,
     "3": 1
@@ -54,10 +54,43 @@ var gameElem = {
     playerEnergy2Elem: document.getElementById('e2-elem'),
     bodyElem: document.getElementById('b-elem'),
     attackElem: document.getElementById('attack-img'),
-    stickImgElem: document.getElementById('stick-img')
+    stickImgElem: document.getElementById('stick-img'),
+    panelElem: document.getElementById('panel-elem')
+}
+var items = {
+    potion: {
+        name: "Health Potion",
+        modHealth: 10,
+        affects: "player",
+        desc: "Tastes like cherries!"
+    },
+    sword: {
+        name: "Longsword",
+        modAttack: .5,
+        affects: "player",
+        desc: "A shiny longsword with a sharp edge."
+    },
+    poison: {
+        name: "Alien Ant Poison",
+        modHealth: -10,
+        affects: "stick",
+        desc: "Goes down so smooth it's criminal."
+    }
 }
 // FUNCTIONS
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// giveItem(item) {}
+function giveItem(given) {
+    alert("You got a "+items[given].name+". "+items[given].desc);
+    if (items[given].affects === "player") {
+        if (items[given].modHealth) {player.health += items[given].modHealth;}
+        if (items[given].modAttack) {player.attackModifier += items[given].modAttack;}
+    } else {
+        if (items[given].modHealth) {stick.health += items[given].modHealth;}
+        if (items[given].modAttack) {stick.attackModifier += items[given].modAttack;}
+    }
+    update();
+}
 // attack(type,position) {}
 function attack(type, position) {
     
@@ -113,6 +146,7 @@ function update() {
             break;
         case 2:
             console.log("Game is over: Player won");
+            gameElem.panelElem.setAttribute('class','panel panel-success');
             overKill += 1;
             if (overKill) {
                 // Add later
@@ -120,6 +154,7 @@ function update() {
             break;
         case 3:
             console.log("Game is over: Player lost");
+            gameElem.panelElem.setAttribute('class','panel panel-danger');
             break;
     }
     // Update HTML Elems
@@ -138,6 +173,7 @@ function reset() {
     player.health = 100;
     player.energy = 10;
     stick.health = 100;
+    gameElem.panelElem.setAttribute('class','panel panel-primary');
     update();
 
 }
