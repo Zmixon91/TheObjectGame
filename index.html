@@ -11,12 +11,18 @@
     <div id="panel-elem" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">The Slap Game</h3>
-            <span>Stick Health&nbsp;</span>
-            <span id="h-elem"></span>
-            <span class="pull-right" id="p-elem"></span>
-            <span class="pull-right">Your Health&nbsp;</span>
             <div class="progress">
-                <div class="progress-bar progress-bar-warning" id="e-elem" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-success" id="healthBarStick-elem" role="progressbar">
+                    <span class="pull-left">Stick Health&nbsp;<span id="h-elem"></span></span>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" id="healthBar-elem" role="progressbar">
+                    <span class="pull-left">Your Health&nbsp;<span id="p-elem"></span></span>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-warning" id="e-elem" role="progressbar">
                     <span class="pull-left">Energy&nbsp;<span id="e2-elem"></span></span>
                 </div>
             </div>

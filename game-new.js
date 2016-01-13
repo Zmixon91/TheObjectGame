@@ -49,7 +49,9 @@ var stick = {
 // {obj} game elements
 var gameElem = {
     playerHealthElem: document.getElementById('p-elem'),
+    playerHealthBarElem: document.getElementById('healthBar-elem'),
     stickHealthElem: document.getElementById('h-elem'),
+    stickHealthBarElem: document.getElementById('healthBarStick-elem'),
     playerEnergyElem: document.getElementById('e-elem'),
     playerEnergy2Elem: document.getElementById('e2-elem'),
     bodyElem: document.getElementById('b-elem'),
@@ -161,6 +163,8 @@ function update() {
     gameElem.playerHealthElem.innerText = String(player.health);
     gameElem.stickHealthElem.innerText = String(stick.health);
     gameElem.playerEnergyElem.style.width = String(player.energy * 100 / 10).concat("%");
+    gameElem.playerHealthBarElem.style.width = String(player.health * 100 / 100).concat("%");
+    gameElem.stickHealthBarElem.style.width = String(stick.health * 100 / 100).concat("%");
     gameElem.playerEnergy2Elem.innerText = String(player.energy);
 
 }
