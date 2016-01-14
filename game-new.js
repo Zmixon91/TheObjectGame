@@ -13,6 +13,11 @@
 *                   items to further increase/decrease damage
 */
 
+/* Game Design 3:   Now make it not suck by unspaghettifying your
+*                   code. Also make use of mutliple .js files.
+*                   Also code better.
+*/
+
 // Initialize Vars
 
 // NUMBERS
@@ -38,7 +43,8 @@ var attacks = { //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 var player = {
     health: 100,
     energy: 10,
-    attackModifier: 1
+    attackModifier: 1,
+    inventory: []
 }
 // {obj} stick
 var stick = {
@@ -60,70 +66,30 @@ var gameElem = {
     stickImgElem: document.getElementById('stick-img'),
     panelElem: document.getElementById('panel-elem')
 }
-var items = {
-    pot: new item("Health Potion", 10, 0, true, "Tastes like cherries!", "pot", 1), //<<<<<<<<<<<<<<<<<<<<<<<
-    srd: new item("Longsword", 0, .5, true, "A shiny longsword with a sharp edge.", "srd", 2),
-    psn: new item("Alien Ant Poison", -10, 0, false, "Goes down so smooth it's criminal.", "psn", 3),
-    twg: new item("A broken twig", 0, -.5, true, "It's broken, you're going to do less damage with this.", "twg", 4)
-}
+
 // FUNCTIONS
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-// Item Constructor
-function item(name, modHealth, modAttack, affectsPlayer, desc, id, idNum) {
-    this.name = name;
-    this.modHealth = modHealth;
-    this.modAttack = modAttack;
-    this.affectsPlayer = affectsPlayer;
-    this.desc = desc;
-    this.id = id;
-    this.idNum = idNum;
-    this.draw = function () {
-        $("#whatever").append("<p id=" + this.id + " onclick='items." + this.id + ".delete()'>You have a " + this.name + "! " + this.desc + " Click here to use it!</p>");
-        update();
-        return true;
-    }
-    this.delete = function () {
-        $("#" + this.id).remove();
-        if (this.affectsPlayer) {
-            // FIX THIS LATER
-            if (this.modHealth != 0) { player.health += this.modHealth; }
-            if (this.modAttack != 0) { player.attackModifier += this.modAttack; }
-        } else {
-            if (this.modHealth != 0) { stick.health += this.modHealth; }
-            if (this.modAttack != 0) { stick.attackModifier += this.modAttack; }
-        }
-        update();
-        return this.id;
-    }
-}
-// giveItem(item) {}
-function giveItem(given) {
-    if (!given) {
-        given = { 1: "pot", 2: "srd", 3: "psn", 4: "twg" };
-        given = given[(Math.floor(Math.random() * 4) + 1)]
-    }
-    items[given].draw();
-    update();
-}
 // attack(type,position) {}
+// This needs cleaning
 function attack(type, position) {
     // Player Attack
     var energy = player.energy - attacks[type];
     if (energy < 0) {
         console.log("Error: Not enough Energy");
-    } else {
-        if (stick.position === position) {
-            gameElem.attackElem.className = "attack-img " + gameElem.stickImgElem.className;
-            stick.health -= Math.ceil(player.attackModifier * attacks[type]);
-        }
-        player.energy = energy;
+        return;
     }
+    if (stick.position === position) {
+        gameElem.attackElem.className = "attack-img " + gameElem.stickImgElem.className;
+        stick.health -= Math.ceil(player.attackModifier * attacks[type]);
+    }
+    player.energy = energy;
     // Stick Attack
     player.health -= Math.ceil(stick.attackModifier * (attacks[Math.floor(Math.random() * 3) + 1]));
     // run game update
     update();
 }
 // update() {}
+// This needs cleaning
 function update() {
     setTimeout(function () {
         gameElem.attackElem.className = "hidden";
@@ -164,8 +130,8 @@ function update() {
             console.log("Game is over: Player won");
             gameElem.panelElem.setAttribute('class', 'panel panel-success');
             overKill += 1;
+            // Please rewrite to be less if/else offensive
             if (overKill <= 5) {
-
             } else {
                 if (overKill <= 7) {
                     gameElem.bodyElem.innerText = "Okay, you win!";
@@ -178,7 +144,7 @@ function update() {
                         } else {
                             if (overKill >= 15) {
                                 gameElem.bodyElem.innerText = "You need help!";
-                                window.location.href="https://www.google.com/search?q=anger+management+services";
+                                window.location.href = "https://www.google.com/search?q=anger+management+services";
                             }
                         }
                     }
@@ -212,6 +178,7 @@ function update() {
 function reset() {
     
     // Reset game values
+    // Give this a better method for utilizing game difficulty
     gameState = 0;
     overKill = 0;
     player.health = 100;
