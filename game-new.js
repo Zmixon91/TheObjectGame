@@ -61,10 +61,10 @@ var gameElem = {
     panelElem: document.getElementById('panel-elem')
 }
 var items = {
-    pot: new item("Health Potion", 10, 0, true, "Tastes like cherries!", "pot",1), //<<<<<<<<<<<<<<<<<<<<<<<
-    srd: new item("Longsword", 0, .5, true, "A shiny longsword with a sharp edge.", "srd",2),
-    psn: new item("Alien Ant Poison", -10, 0, false, "Goes down so smooth it's criminal.", "psn",3),
-    twg: new item("A broken twig", 0, -.5, true, "It's broken, you're going to do less damage with this.", "twg",4)
+    pot: new item("Health Potion", 10, 0, true, "Tastes like cherries!", "pot", 1), //<<<<<<<<<<<<<<<<<<<<<<<
+    srd: new item("Longsword", 0, .5, true, "A shiny longsword with a sharp edge.", "srd", 2),
+    psn: new item("Alien Ant Poison", -10, 0, false, "Goes down so smooth it's criminal.", "psn", 3),
+    twg: new item("A broken twig", 0, -.5, true, "It's broken, you're going to do less damage with this.", "twg", 4)
 }
 // FUNCTIONS
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -99,7 +99,7 @@ function item(name, modHealth, modAttack, affectsPlayer, desc, id, idNum) {
 // giveItem(item) {}
 function giveItem(given) {
     if (!given) {
-        given = {1:"pot",2:"srd",3:"psn",4:"twg"};
+        given = { 1: "pot", 2: "srd", 3: "psn", 4: "twg" };
         given = given[(Math.floor(Math.random() * 4) + 1)]
     }
     items[given].draw();
@@ -107,14 +107,13 @@ function giveItem(given) {
 }
 // attack(type,position) {}
 function attack(type, position) {
-    // ADD ATTACK ANIMATION FROM OLD JS
     // Player Attack
     var energy = player.energy - attacks[type];
     if (energy < 0) {
         console.log("Error: Not enough Energy");
     } else {
         if (stick.position === position) {
-            gameElem.attackElem.className = "attack-img "+gameElem.stickImgElem.className;
+            gameElem.attackElem.className = "attack-img " + gameElem.stickImgElem.className;
             stick.health -= Math.ceil(player.attackModifier * attacks[type]);
         }
         player.energy = energy;
@@ -152,7 +151,6 @@ function update() {
             }
             gameElem.stickImgElem.classList.remove("pull-left");
             gameElem.stickImgElem.classList.remove("pull-right");
-            // !!!!!!!!! MOVE THIS TO THE ATTACK FUNCTION LATER !!!!!!!!!
             if (Math.round(Math.random())) {
                 stick.position = "right";
                 gameElem.stickImgElem.classList.add("pull-right");
@@ -166,8 +164,25 @@ function update() {
             console.log("Game is over: Player won");
             gameElem.panelElem.setAttribute('class', 'panel panel-success');
             overKill += 1;
-            if (overKill) {
-                // Add later
+            if (overKill <= 5) {
+
+            } else {
+                if (overKill <= 7) {
+                    gameElem.bodyElem.innerText = "Okay, you win!";
+                } else {
+                    if (overKill <= 10) {
+                        gameElem.bodyElem.innerText = "Stop you're hurting him!";
+                    } else {
+                        if (overKill <= 12) {
+                            gameElem.bodyElem.innerText = "You're a monster!";
+                        } else {
+                            if (overKill >= 15) {
+                                gameElem.bodyElem.innerText = "You need help!";
+                                window.location.href="https://www.google.com/search?q=anger+management+services";
+                            }
+                        }
+                    }
+                }
             }
             break;
         case 3:
