@@ -114,6 +114,7 @@ function attack(type, position) {
         console.log("Error: Not enough Energy");
     } else {
         if (stick.position === position) {
+            gameElem.attackElem.className = "attack-img "+gameElem.stickImgElem.className;
             stick.health -= Math.ceil(player.attackModifier * attacks[type]);
         }
         player.energy = energy;
@@ -125,7 +126,9 @@ function attack(type, position) {
 }
 // update() {}
 function update() {
-    
+    setTimeout(function () {
+        gameElem.attackElem.className = "hidden";
+    }, 500);
     // Check health values
     if (player.health <= 0) {
         player.health = 0;
