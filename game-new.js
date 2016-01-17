@@ -21,24 +21,24 @@
 // Initialize Vars
 
 // NUMBERS
-// {num} gameState
-// 0=init
-// 1=running
-// 2=win
-// 3=lose
-var gameState = 0;
 // {num} overKill
 var overKill = 0;
 // OBJECTS
+// {enum} states
+var states = {
+    initialize: 0,
+    running: 1,
+    win: 2,
+    lose: 3
+}
+// {enum} gameState
+var gameState = states.initialize;
 // {obj} attacks
 var attacks = {
     // This can be cleaned up
     "kick": 10,
     "punch": 5,
     "slap": 1,
-    "1": 10,
-    "2": 5,
-    "3": 1
 }
 // {obj} player
 var player = {
@@ -71,6 +71,12 @@ var gameElem = {
 
 // FUNCTIONS
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// randomProperty() {}
+// Useful for those pesky associative arrays.
+var randomProperty = function (object) {
+    var keys = Object.keys(object);
+    return object[keys[Math.floor(keys.length * Math.random())]];
+};
 // attack(type,position) {}
 // This needs cleaning
 function attack(type, position) {
@@ -86,7 +92,7 @@ function attack(type, position) {
     }
     player.energy = energy;
     // Stick Attack
-    player.health -= Math.ceil(stick.attackModifier * (attacks[Math.floor(Math.random() * 3) + 1]));
+    player.health -= Math.ceil(stick.attackModifier * randomProperty(attacks));
     // run game update
     update();
 }
@@ -99,11 +105,11 @@ function update() {
     // Check health values
     if (player.health <= 0) {
         player.health = 0;
-        gameState = 3;
+        gameState = states.lose;
     }
     if (stick.health <= 0) {
         stick.health = 0;
-        gameState = 2;
+        gameState = states.win;
     }
     // Check game state
     switch (gameState) {

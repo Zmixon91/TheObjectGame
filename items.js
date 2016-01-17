@@ -1,6 +1,5 @@
 // Item Constructor
 //array.splice method
-var id = 0;
 var Item = function (name, modHealth, modAttack, affectsPlayer, desc) {
     // Define items
     this.name = name;
@@ -8,7 +7,6 @@ var Item = function (name, modHealth, modAttack, affectsPlayer, desc) {
     this.modAttack = modAttack;
     this.affectsPlayer = affectsPlayer;
     this.desc = desc;
-    this.id = id++;
     // Constructed functions
     this.add = function () {
         player.inventory.push(this);
@@ -32,10 +30,6 @@ var items = {
     poison: new Item("Alien Ant Poison", -10, 0, false, "Goes down so smooth it's criminal."),
     twig: new Item("A broken twig", 0, -.5, true, "It's broken, you're going to do less damage with this.")
 }
-var randomProperty = function (object) {
-    var keys = Object.keys(object);
-    return object[keys[Math.floor(keys.length * Math.random())]];
-};
 function giveItem(item) {
     if (!item) {
         // math stuff to give a random item
