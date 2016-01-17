@@ -31,6 +31,7 @@ var Inventory = function () {
     // method to clear player inventory
     this.clear = function () {
         this.list = [];
+        update();
     }
     // method to draw player inventory to target div
     this.draw = function () {

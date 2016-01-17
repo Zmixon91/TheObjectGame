@@ -47,7 +47,25 @@ var player = {
 var stick = {
     health: 100,
     attackModifier: 0.5,
-    position: null
+    position: null,
+    move: function (pos) {
+        // Clean CPU image position
+        gameElem.stickImgElem.classList.remove("pull-left");
+        gameElem.stickImgElem.classList.remove("pull-right");
+        // Decide new position if none given
+        if (!pos) {
+            if (Math.round(Math.random())) {
+                stick.position = "right";
+                gameElem.stickImgElem.classList.add("pull-right");
+            } else {
+                stick.position = "left";
+                gameElem.stickImgElem.classList.add("pull-left");
+            }
+        } else {
+            stick.position = pos;
+            gameElem.stickImgElem.classList.add("pull-" + pos);
+        }
+    }
 }
 // {obj} game HTML elements
 var gameElem = {
@@ -76,10 +94,12 @@ var randomProperty = function (object) {
 function attack(type, position) {
     // Player Attack
     var energy = player.energy - attacks[type];
+    // Check energy
     if (energy < 0) {
         console.log("Error: Not enough Energy");
         return;
     }
+    // Check CPU position
     if (stick.position === position) {
         gameElem.attackElem.className = "attack-img " + gameElem.stickImgElem.className;
         setTimeout(function () {
@@ -134,23 +154,17 @@ function update() {
         case 0:
             console.log("Game starting");
             gameState = 1;
+            stick.move();
             break;
         case 1:
             console.log("Game is running");
+            // Regen energy
             player.energy += 5;
+            // Cap energy
             if (player.energy > 10) {
                 player.energy = 10;
             }
-            gameElem.stickImgElem.classList.remove("pull-left");
-            gameElem.stickImgElem.classList.remove("pull-right");
-            if (Math.round(Math.random())) {
-                stick.position = "right";
-                gameElem.stickImgElem.classList.add("pull-right");
-            } else {
-                stick.position = "left";
-                gameElem.stickImgElem.classList.add("pull-left");
-            }
-
+            stick.move();
             break;
         case 2:
             console.log("Game is over: Player won");
