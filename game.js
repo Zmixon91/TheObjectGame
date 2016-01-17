@@ -21,7 +21,7 @@
 // Initialize Vars
 // Responsible for OverKill feature, easter egg for abusive users
 var overKill = 0;
-// Define Game States
+// Define Game States enum
 var states = {
     initialize: 0,
     running: 1,
@@ -49,7 +49,7 @@ var stick = {
     attackModifier: 0.5,
     position: null
 }
-// {obj} game elements
+// {obj} game HTML elements
 var gameElem = {
     playerHealthElem: document.getElementById('p-elem'),
     playerHealthBarElem: document.getElementById('healthBar-elem'),
@@ -82,6 +82,9 @@ function attack(type, position) {
     }
     if (stick.position === position) {
         gameElem.attackElem.className = "attack-img " + gameElem.stickImgElem.className;
+        setTimeout(function () {
+            gameElem.attackElem.className = "hidden";
+        }, 500);
         stick.health -= Math.ceil(player.attackModifier * attacks[type]);
     }
     player.energy = energy;
@@ -90,12 +93,33 @@ function attack(type, position) {
     // run game update
     update();
 }
+// Responsible for displaying funny messages when player continues to attack after winning
+function checkOverKill(val) {
+    // Please rewrite to be less if/else offensive
+    if (val <= 5) {
+    } else {
+        if (val <= 7) {
+            gameElem.bodyElem.innerText = "Okay, you win!";
+        } else {
+            if (val <= 10) {
+                gameElem.bodyElem.innerText = "Stop you're hurting him!";
+            } else {
+                if (val <= 12) {
+                    gameElem.bodyElem.innerText = "You're a monster!";
+                } else {
+                    if (val >= 15) {
+                        gameElem.bodyElem.innerText = "You need help!";
+                        window.location.href = "https://www.google.com/search?q=anger+management+services";
+                    }
+                }
+            }
+        }
+    }
+}
 // Responsible for processing game logic in accordance with game state
 // This needs cleaning
 function update() {
-    setTimeout(function () {
-        gameElem.attackElem.className = "hidden";
-    }, 500);
+
     // Check health values
     if (player.health <= 0) {
         player.health = 0;
@@ -132,26 +156,7 @@ function update() {
             console.log("Game is over: Player won");
             gameElem.panelElem.setAttribute('class', 'panel panel-success');
             overKill += 1;
-            // Please rewrite to be less if/else offensive
-            if (overKill <= 5) {
-            } else {
-                if (overKill <= 7) {
-                    gameElem.bodyElem.innerText = "Okay, you win!";
-                } else {
-                    if (overKill <= 10) {
-                        gameElem.bodyElem.innerText = "Stop you're hurting him!";
-                    } else {
-                        if (overKill <= 12) {
-                            gameElem.bodyElem.innerText = "You're a monster!";
-                        } else {
-                            if (overKill >= 15) {
-                                gameElem.bodyElem.innerText = "You need help!";
-                                window.location.href = "https://www.google.com/search?q=anger+management+services";
-                            }
-                        }
-                    }
-                }
-            }
+            checkOverKill(overKill);
             break;
         case 3:
             console.log("Game is over: Player lost");
