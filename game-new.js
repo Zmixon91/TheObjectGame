@@ -46,7 +46,7 @@ var player = {
     health: 100,
     energy: 10,
     attackModifier: 1,
-    inventory: []
+    inventory: new Inventory()
 }
 // {obj} stick
 var stick = {
@@ -197,7 +197,7 @@ function reset() {
     stick.attackModifier = .5;
     gameElem.panelElem.setAttribute('class', 'panel panel-primary');
     $("#whatever").empty();
-    player.inventory = [];
+    player.inventory.list = [];
     update();
 
 }

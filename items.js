@@ -1,5 +1,4 @@
 // Item Constructor
-//array.splice method
 var Item = function (name, modHealth, modAttack, affectsPlayer, desc) {
     // Define items
     this.name = name;
@@ -7,20 +6,15 @@ var Item = function (name, modHealth, modAttack, affectsPlayer, desc) {
     this.modAttack = modAttack;
     this.affectsPlayer = affectsPlayer;
     this.desc = desc;
-    // Constructed functions
-    this.add = function () {
-        player.inventory.push(this);
-        // Push into player.inventory array
-    }
-    this.delete = function () {
-        // Deletes objects from player.inventory array, might need splice
-        // How do I get it to target itself in the array?
-        // Seems like any pop/shift method will remove either the front
-        // or back and not the one I'm specifically using
-    }
     this.draw = function () {
         // Draws itself to the page
         $("#whatever").append("<li class=" + this.id + " onclick=''>" + this.name + " " + this.desc + "</li>");
+    }
+}
+var Inventory = function () {
+    this.list = []
+    this.add = function (item) {
+        this.list.push(item);
     }
 }
 var items = {
@@ -33,16 +27,16 @@ var items = {
 function giveItem(item) {
     if (!item) {
         // math stuff to give a random item
-        randomProperty(items).add();
+        player.inventory.add(randomProperty(items))
     }
-    else items[item].add();
+    else player.inventory.add(items[item]);
     update();
     // Gives the player a random item if !item
 }
 function drawInventory() {
     // Lists all items in player.inventory in target div
     $("#whatever").empty();
-    for (var i = 0; i < player.inventory.length; i++) {
-        player.inventory[i].draw();
+    for (var i = 0; i < player.inventory.list.length; i++) {
+        player.inventory.list[i].draw();
     }
 }
