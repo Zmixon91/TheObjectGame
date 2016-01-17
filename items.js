@@ -31,6 +31,7 @@ var Inventory = function () {
     // method to clear player inventory
     this.clear = function () {
         this.list = [];
+        update();
     }
     // method to draw player inventory to target div
     this.draw = function () {
@@ -40,8 +41,8 @@ var Inventory = function () {
         }
     }
 }
+// List of items available in the game
 var items = {
-    // List of items available in the game
     potion: new Item("Health Potion", 10, 0, true, "Tastes like cherries!"),
     sword: new Item("Longsword", 0, .5, true, "A shiny longsword with a sharp edge."),
     poison: new Item("Alien Ant Poison", -10, 0, false, "Goes down so smooth it's criminal."),
