@@ -31,7 +31,8 @@ var gameState = 0;
 var overKill = 0;
 // OBJECTS
 // {obj} attacks
-var attacks = { //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+var attacks = {
+    // This can be cleaned up
     "kick": 10,
     "punch": 5,
     "slap": 1,
@@ -41,6 +42,7 @@ var attacks = { //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 }
 // {obj} player
 var player = {
+    // player and stick share some properties, maybe make a constructor?
     health: 100,
     energy: 10,
     attackModifier: 1,
