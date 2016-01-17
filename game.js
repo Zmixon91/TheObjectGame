@@ -140,10 +140,13 @@ function checkOverKill(val) {
 // This needs cleaning
 function update() {
 
-    // Check health values
+    // Check and cap health values
     if (player.health <= 0) {
         player.health = 0;
         gameState = states.lose;
+    }
+    if (player.health >200) {
+        player.health = 200;
     }
     if (stick.health <= 0) {
         stick.health = 0;
@@ -182,6 +185,8 @@ function update() {
     gameElem.stickHealthElem.innerText = String(stick.health);
     gameElem.playerEnergyElem.style.width = String(player.energy * 100 / 10).concat("%");
     gameElem.playerHealthBarElem.style.width = String(player.health).concat("%");
+    // OverHealth
+    // Currently only has one bar, need to add scaling
     if (player.health > 100) {
         var newHealth = player.health - 100;
         gameElem.playerHealthBarOverElem.style.width = String(newHealth).concat("%");
