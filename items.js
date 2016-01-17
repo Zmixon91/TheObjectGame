@@ -1,20 +1,30 @@
-// Item Constructor
+// Item Constructor, contains item data
 var Item = function (name, modHealth, modAttack, affectsPlayer, desc) {
-    // Define items
     this.name = name;
     this.modHealth = modHealth;
     this.modAttack = modAttack;
     this.affectsPlayer = affectsPlayer;
     this.desc = desc;
-    this.draw = function () {
-        // Draws itself to the page
-        $("#whatever").append("<li class=" + this.id + " onclick=''>" + this.name + " " + this.desc + "</li>");
-    }
 }
+// Inventory constructor, contains item logic
 var Inventory = function () {
     this.list = []
     this.add = function (item) {
         this.list.push(item);
+    }
+    this.remove = function (item) {
+        if (this.list[item].affectsPlayer) {
+            player.health += this.list[item].modHealth;
+            player.attackModifier += this.list[item].modAttack;
+        } else {
+            stick.health += this.list[item].modHealth;
+            stick.attackModifier += this.list[item].modAttack;
+        }
+        this.list.splice(item, 1);
+        update();
+    }
+    this.clear = function () {
+        this.list = [];
     }
 }
 var items = {
@@ -37,6 +47,6 @@ function drawInventory() {
     // Lists all items in player.inventory in target div
     $("#whatever").empty();
     for (var i = 0; i < player.inventory.list.length; i++) {
-        player.inventory.list[i].draw();
+        $("#whatever").append("<div><a href='javascript:;' onclick='player.inventory.remove(" + i + ");'>" + player.inventory.list[i].name + " " + player.inventory.list[i].desc + "</a></div>");
     }
 }

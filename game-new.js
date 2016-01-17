@@ -197,7 +197,7 @@ function reset() {
     stick.attackModifier = .5;
     gameElem.panelElem.setAttribute('class', 'panel panel-primary');
     $("#whatever").empty();
-    player.inventory.list = [];
+    player.inventory.clear();
     update();
 
 }
