@@ -19,36 +19,31 @@
 */
 
 // Initialize Vars
-
-// NUMBERS
-// {num} overKill
+// Responsible for OverKill feature, easter egg for abusive users
 var overKill = 0;
-// OBJECTS
-// {enum} states
+// Define Game States
 var states = {
     initialize: 0,
     running: 1,
     win: 2,
     lose: 3
 }
-// {enum} gameState
+// Set initial game state
 var gameState = states.initialize;
-// {obj} attacks
+// Attack dictionary
 var attacks = {
-    // This can be cleaned up
     "kick": 10,
     "punch": 5,
     "slap": 1,
 }
-// {obj} player
+// Player object, contains inventory
 var player = {
-    // player and stick share some properties, maybe make a constructor?
     health: 100,
     energy: 10,
     attackModifier: 1,
     inventory: new Inventory()
 }
-// {obj} stick
+// CPU player object, hereby referred to as Stick
 var stick = {
     health: 100,
     attackModifier: 0.5,
@@ -69,16 +64,15 @@ var gameElem = {
     panelElem: document.getElementById('panel-elem')
 }
 
-// FUNCTIONS
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-// randomProperty() {}
-// Useful for those pesky associative arrays.
+// FUNCTIONS
+// Useful for those pesky associative arrays. Used to select random objects from dictionaries/associative arrays
 var randomProperty = function (object) {
     var keys = Object.keys(object);
     return object[keys[Math.floor(keys.length * Math.random())]];
 };
-// attack(type,position) {}
-// This needs cleaning
+// Responsible for processing attack logic
+// Please clean
 function attack(type, position) {
     // Player Attack
     var energy = player.energy - attacks[type];
@@ -96,7 +90,7 @@ function attack(type, position) {
     // run game update
     update();
 }
-// update() {}
+// Responsible for processing game logic in accordance with game state
 // This needs cleaning
 function update() {
     setTimeout(function () {
@@ -183,7 +177,7 @@ function update() {
 
 
 }
-// reset() {}
+// Responsible for resetting variables for a fresh game
 function reset() {
     
     // Reset game values
