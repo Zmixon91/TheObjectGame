@@ -172,6 +172,7 @@ function update() {
     }
     gameElem.stickHealthBarElem.style.width = String(stick.health).concat("%");
     gameElem.playerEnergy2Elem.innerText = String(player.energy);
+    drawInventory();
 
 
 
@@ -190,6 +191,7 @@ function reset() {
     stick.attackModifier = .5;
     gameElem.panelElem.setAttribute('class', 'panel panel-primary');
     $("#whatever").empty();
+    player.inventory = [];
     update();
 
 }
