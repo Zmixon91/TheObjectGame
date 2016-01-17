@@ -178,7 +178,7 @@ function update() {
     }
     gameElem.stickHealthBarElem.style.width = String(stick.health).concat("%");
     gameElem.playerEnergy2Elem.innerText = String(player.energy);
-    drawInventory();
+    player.inventory.draw();
 
 
 
